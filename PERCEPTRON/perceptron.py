@@ -54,3 +54,17 @@ class Perceptron(object):
     def weights_changed(self, weights: dict, bias: float):
         """ Checks if the weights and bias have changed."""
         return self.weights != weights or self.bias != bias
+
+    def predict(self, X: list):
+        """ Predicts the output of the perceptron."""
+        predicted = {}
+
+        for x in X:
+            y_in = self.bias + \
+                sum([x[col_num] * self.weights[col_num]
+                    for col_num in range(len(x))])
+            y_pred = self.activation_function(y_in)
+            
+            predicted[f"{str(x)}"] = y_pred
+
+        return predicted
