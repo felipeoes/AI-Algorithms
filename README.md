@@ -1,2 +1,2 @@
-# IA-Algorithms
-Repository for maintaining IA-based algorithms that I developed
+# AI-Algorithms
+Repository for maintaining AI-based algorithms that I developed
