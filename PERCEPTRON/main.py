@@ -121,11 +121,16 @@ network = [perceptronA, perceptronB, perceptronC,
            perceptronD, perceptronE, perceptronJ, perceptronK]
 
 # Testing
-final_predict = []
-for neuron in network:
-    print(f"{neuron.bias} \n")
 
-    predicted = neuron.predict([*X], value_only=True)
+file_manager = FileManager("data/caracteres_teste.csv")
+df_char_test = file_manager.read_csv(chars_df=True)
+X_test, _ = file_manager.extract_X_y(df_char_test, chars_df=True)
+
+final_predict = []
+for index, neuron in enumerate(network):
+    print(f"Bias neuron {index} : {neuron.bias} \n")
+
+    predicted = neuron.predict([*X_test], value_only=True)
     final_predict.append([predicted[index] for index in predicted])
 
 for index, prediction in enumerate(final_predict):
@@ -135,5 +140,9 @@ for index, prediction in enumerate(final_predict):
         print(
             f"Predicted the letter {char} correctly with accuracy {globals()[f'accuracy{char}']}! Generated vector: {letter}")
     else:
+        try: 
+            char = chars_dict[str(letter)]
+        except:
+            char = "Unknown"
         print(
-            f"Predicted the letter {char} incorrectly! Predicted {chars_dict[final_predict]} | Generated vector: {letter}")
+            f"Predicted the letter {char} incorrectly! | Generated vector: {letter}")
